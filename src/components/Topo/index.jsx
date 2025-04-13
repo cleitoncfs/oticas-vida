@@ -1,11 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Topo.module.css";
 
 export default function Topo() {
     const [menuAberto, setMenuAberto] = useState(false);
+    const menuRef = useRef(null);
+    const buttonRef = useRef(null);
 
     const toggleMenu = () => {
         setMenuAberto(!menuAberto);
+    };
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                menuAberto &&
+                !menuRef.current.contains(event.target) &&
+                !buttonRef.current.contains(event.target)
+            ) {
+                setMenuAberto(false);
+            }
+        }
+
+        function handleScroll() {
+            if (menuAberto) {
+                setMenuAberto(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [menuAberto]);
+
+    const handleLinkClick = () => {
+        setMenuAberto(false);
+        // Adiciona um pequeno delay para permitir a animação fechar antes do scroll
+        setTimeout(() => {
+            window.scrollTo(0, window.scrollY);
+        }, 300);
     };
 
     return (
@@ -17,8 +53,8 @@ export default function Topo() {
                     className={styles.logo}
                 />
 
-                {/* Botão Hamburguer */}
                 <button
+                    ref={buttonRef}
                     className={`${styles["menu-hamburguer"]} ${
                         menuAberto ? styles.ativo : ""
                     }`}
@@ -32,6 +68,7 @@ export default function Topo() {
                 </button>
 
                 <nav
+                    ref={menuRef}
                     className={`${styles.nav} ${
                         menuAberto ? styles.ativo : ""
                     }`}
@@ -39,21 +76,21 @@ export default function Topo() {
                     <a
                         href="#produtos"
                         className={styles.link}
-                        onClick={() => setMenuAberto(false)}
+                        onClick={handleLinkClick}
                     >
                         PRODUTOS
                     </a>
                     <a
                         href="#sobre"
                         className={styles.link}
-                        onClick={() => setMenuAberto(false)}
+                        onClick={handleLinkClick}
                     >
                         SOBRE
                     </a>
                     <a
                         href="#contato"
                         className={styles.link}
-                        onClick={() => setMenuAberto(false)}
+                        onClick={handleLinkClick}
                     >
                         CONTATO
                     </a>

@@ -33,22 +33,79 @@
     margin: 0 0 0 10px;
 }
 
+/* NOVOS ESTILOS */
+.formulario-contato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 30px;
+    gap: 10px;
+}
+
+.textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    resize: vertical;
+    font-size: 16px;
+}
+
+.botao {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #00bfff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao:hover {
+    background-color: #009acd;
+}
+
+.mapa {
+    width: 100%;
+    margin: 20px 0 40px;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
     .secao-contato {
         padding: 60px 20px;
     }
+
+    .contato-container {
+        flex-direction: column;
+    }
+
+    .contato-conteudo {
+        align-items: center;
+    }
+
+    .contato-conteudo div {
+        width: 150px;
+    }
+
+    .textarea {
+        width: 100%;
+    }
 }
+
 @media (max-width: 550px) {
     .secao-contato {
         padding: 60px 10px;
     }
-    .contato-container {
-        flex-direction: column;
+
+    .textarea {
+        font-size: 14px;
     }
-    .contato-conteudo {
-        align-items: center;
-    }
-    .contato-conteudo div {
-        width: 150px;
+
+    .botao {
+        font-size: 14px;
+        padding: 8px 16px;
     }
 }

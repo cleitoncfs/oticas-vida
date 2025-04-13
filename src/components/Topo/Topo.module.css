@@ -1,6 +1,12 @@
 header {
     padding: 10px 15px;
-    position: relative;
+    position: fixed; /* <-- fixar no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* fundo branco para sobrepor o conteúdo */
+    z-index: 100; /* garantir que fique acima dos outros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* opcional: sombra sutil */
 }
 
 header div {
@@ -26,6 +32,8 @@ header a {
     color: #000;
     padding: 5px;
     transition: color 0.3s;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 header a:hover {
@@ -65,6 +73,41 @@ header a:hover {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/* Overlay e animações */
+header nav.ativo::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+}
+
+@media (max-width: 768px) {
+    header nav a {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    header nav.ativo a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    header nav.ativo a:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+    header nav.ativo a:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+    header nav.ativo a:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .menu-hamburguer {
@@ -101,5 +144,49 @@ header a:hover {
 @media (min-width: 769px) {
     header nav {
         display: flex !important;
+    }
+}
+
+/* Para garantir que o overlay não bloqueie os cliques */
+header nav.ativo::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    pointer-events: none; /* Isso permite cliques através do overlay */
+}
+
+/* Garante que o nav esteja acima do overlay */
+header nav {
+    z-index: 5;
+}
+
+/* transição para o fechamento suave */
+header nav {
+    transition: right 0.3s ease, opacity 0.3s ease;
+}
+
+/* Corrige o posicionamento do menu */
+@media (max-width: 768px) {
+    header nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    header nav.ativo {
+        right: 0;
     }
 }
