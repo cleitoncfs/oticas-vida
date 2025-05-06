@@ -1,29 +1,40 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Topo.module.css";
 
 export default function Topo() {
     const [menuAberto, setMenuAberto] = useState(false);
+    const [headerScroll, setHeaderScroll] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
 
-    const toggleMenu = () => {
-        setMenuAberto(!menuAberto);
-    };
+    // Usando useCallback para memoizar a função e evitar recriações desnecessárias
+    const toggleMenu = useCallback(() => {
+        setMenuAberto((prev) => !prev);
+        document.body.style.overflow = menuAberto ? "auto" : "hidden";
+    }, [menuAberto]);
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (
                 menuAberto &&
+                menuRef.current &&
                 !menuRef.current.contains(event.target) &&
+                buttonRef.current &&
                 !buttonRef.current.contains(event.target)
             ) {
-                setMenuAberto(false);
+                toggleMenu();
             }
         }
 
         function handleScroll() {
+            if (window.scrollY > 50) {
+                setHeaderScroll(true);
+            } else {
+                setHeaderScroll(false);
+            }
+
             if (menuAberto) {
-                setMenuAberto(false);
+                toggleMenu();
             }
         }
 
@@ -33,25 +44,28 @@ export default function Topo() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
             window.removeEventListener("scroll", handleScroll);
+            document.body.style.overflow = "auto";
         };
-    }, [menuAberto]);
+    }, [menuAberto, toggleMenu]); // Agora incluímos toggleMenu nas dependências
 
-    const handleLinkClick = () => {
-        setMenuAberto(false);
-        // Adiciona um pequeno delay para permitir a animação fechar antes do scroll
-        setTimeout(() => {
-            window.scrollTo(0, window.scrollY);
-        }, 300);
-    };
+    const handleLinkClick = useCallback(() => {
+        toggleMenu();
+    }, [toggleMenu]);
 
     return (
-        <header className={styles.header}>
+        <header
+            className={`${styles.header} ${
+                headerScroll ? styles.scrolled : ""
+            }`}
+        >
             <div className={styles["limitar-secao"]}>
-                <img
-                    src="/assets/logo.png"
-                    alt="imagem de um óculos à direita e o nome da ótica à esquerda"
-                    className={styles.logo}
-                />
+                <a href="#">
+                    <img
+                        src="/assets/logo.png"
+                        alt="Logotipo da Óticas Vida"
+                        className={styles.logo}
+                    />
+                </a>
 
                 <button
                     ref={buttonRef}
@@ -59,12 +73,12 @@ export default function Topo() {
                         menuAberto ? styles.ativo : ""
                     }`}
                     onClick={toggleMenu}
-                    aria-label="Menu"
+                    aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
                     aria-expanded={menuAberto}
                 >
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
 
                 <nav
@@ -72,6 +86,7 @@ export default function Topo() {
                     className={`${styles.nav} ${
                         menuAberto ? styles.ativo : ""
                     }`}
+                    aria-label="Navegação principal"
                 >
                     <a
                         href="#produtos"

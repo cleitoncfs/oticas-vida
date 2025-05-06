@@ -20,7 +20,6 @@
 .secao-capa p,
 .secao-capa h1 {
     max-width: 500px;
-    font-family: "Anybody", cursive;
 }
 
 .secao-capa p {
@@ -28,13 +27,28 @@
     color: rgb(196, 196, 196);
 }
 
+.secao-capa p:first-child {
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #c4c4c4;
+}
+
 .secao-capa h1 {
     text-transform: uppercase;
     color: #fff;
     font-size: 60px;
     margin: 0;
-    line-height: 70px;
-    letter-spacing: 5px;
+    line-height: 60px;
+    letter-spacing: 2px;
+    font-family: "Playfair Display", serif;
+}
+
+.secao-capa p:last-child {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600; /* Negrito moderado */
+    font-style: italic; /* Opcional: adiciona elegância */
+    color: #f0f0f0; /* Cor levemente mais clara que o cinza atual */
+    margin-top: 10px; /* Espaçamento do título */
 }
 
 @media (max-width: 768px) {

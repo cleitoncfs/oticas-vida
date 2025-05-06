@@ -9,6 +9,7 @@ html {
     font-family: "Arial", sans-serif;
     overflow-x: hidden; /* Previne scroll horizontal */
     line-height: 1.5;
+    font-family: "Montserrat", sans-serif;
 }
 
 *,
@@ -45,4 +46,9 @@ button {
 
 main {
     padding-top: 80px; /* Ajuste conforme a altura real do header */
+}
+
+h1,
+h2 {
+    font-family: "Playfair Display", serif;
 }

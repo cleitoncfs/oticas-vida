@@ -1,4 +1,5 @@
 import styles from "./SecaoSobre.module.css";
+import { FaStore, FaUserFriends } from "react-icons/fa";
 
 export default function SecaoSobre() {
     return (
@@ -16,28 +17,32 @@ export default function SecaoSobre() {
                 </p>
 
                 <div className={styles["box-cards"]}>
-                    <img
-                        src="/assets/loja.png"
-                        alt="Imagem de uma loja"
-                        className={styles["card-image"]}
-                    />
-
+                    {/* Card 1 - Filiais */}
                     <div className={styles["card"]}>
-                        <h4>Nossas Filiais</h4>
+                        <FaStore className={styles["icon"]} />
+                        <h4>NOSSAS FILIAIS</h4>
                         <p>
                             Hoje temos mais de 20 filiais pelo Brasil e na
                             América
                         </p>
                     </div>
 
+                    <img
+                        src="/assets/loja.png"
+                        alt="Filial da Óticas Vida"
+                        className={styles["card-image"]}
+                    />
+
+                    {/* Card 2 - Atendimento */}
                     <div className={styles["card"]}>
-                        <h4>Atendimento flexível</h4>
+                        <FaUserFriends className={styles["icon"]} />
+                        <h4>ATENDIMENTO FLEXÍVEL</h4>
                         <p>Nossa equipe é treinada para te atender</p>
                     </div>
 
                     <img
                         src="/assets/atendimento.png"
-                        alt="Imagem de atendimento"
+                        alt="Atendimento na Óticas Vida"
                         className={styles["card-image"]}
                     />
                 </div>

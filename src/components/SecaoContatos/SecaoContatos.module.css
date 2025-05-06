@@ -1,111 +1,185 @@
-.secao-contato {
-    width: 100%;
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #05031b;
+/* Variáveis consistentes com o projeto */
+:root {
+    --primary-color: #2a2a2a;
+    --secondary-color: #6d6d6d;
+    --accent-color: #0066cc;
+    --bg-dark: #05031b;
+    --text-light: #ffffff;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
 }
 
-.contato-container {
+/* Estilos base */
+.secao-contato {
+    width: 100%;
+    color: var(--text-light);
+    text-align: center;
+    padding: 6rem 1.25rem;
+    background-color: var(--bg-dark);
+    font-family: "Montserrat", sans-serif;
+}
+
+.secao-contato h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.secao-contato h3::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--accent-color);
+    margin: 1rem auto 0;
+}
+
+.secao-contato p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+/* Formulário */
+.formulario-contato {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto 3rem;
+    gap: 1rem;
+    max-width: 600px;
+}
+
+.textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    resize: vertical;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    min-height: 150px;
+    transition: var(--transition);
+}
+
+.textarea:focus {
+    outline: 2px solid var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 106, 204, 0.2);
+}
+
+.botao {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.botao:hover {
+    background-color: #009acd;
+    transform: translateY(-2px);
+}
+
+/* Mapa */
+.mapa {
+    width: 100%;
+    margin: 2rem 0 3rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Contatos */
+.contato-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .contato-conteudo {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 15px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+}
+
+.contato-conteudo h4 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    width: 100%;
+    text-align: left;
 }
 
 .contato-conteudo div {
     display: flex;
     align-items: center;
-    margin: 5px 0;
+    margin: 0.5rem 0;
+    width: 100%;
 }
 
 .contato-conteudo img {
-    width: 18px;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.75rem;
+    filter: brightness(0) invert(1);
 }
 
 .contato-conteudo span {
-    font-size: 14px;
-    margin: 0 0 0 10px;
-}
-
-/* NOVOS ESTILOS */
-.formulario-contato {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0 30px;
-    gap: 10px;
-}
-
-.textarea {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    resize: vertical;
-    font-size: 16px;
-}
-
-.botao {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #00bfff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.botao:hover {
-    background-color: #009acd;
-}
-
-.mapa {
-    width: 100%;
-    margin: 20px 0 40px;
+    font-size: 1rem;
+    color: var(--text-light);
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
     .secao-contato {
-        padding: 60px 20px;
+        padding: 4rem 1.25rem;
+    }
+
+    .secao-contato h3 {
+        font-size: 2rem;
     }
 
     .contato-container {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        max-width: 500px;
     }
 
     .contato-conteudo {
         align-items: center;
     }
 
-    .contato-conteudo div {
-        width: 150px;
-    }
-
-    .textarea {
-        width: 100%;
+    .contato-conteudo h4 {
+        text-align: center;
     }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 480px) {
     .secao-contato {
-        padding: 60px 10px;
+        padding: 3rem 1rem;
     }
 
-    .textarea {
-        font-size: 14px;
+    .secao-contato h3 {
+        font-size: 1.75rem;
     }
 
     .botao {
-        font-size: 14px;
-        padding: 8px 16px;
+        width: 100%;
+        padding: 0.75rem;
     }
 }
