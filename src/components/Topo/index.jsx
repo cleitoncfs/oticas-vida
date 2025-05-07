@@ -7,10 +7,9 @@ export default function Topo() {
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
 
-    // Usando useCallback para memoizar a função e evitar recriações desnecessárias
     const toggleMenu = useCallback(() => {
         setMenuAberto((prev) => !prev);
-        document.body.style.overflow = menuAberto ? "auto" : "hidden";
+        document.body.style.overflow = !menuAberto ? "hidden" : "auto";
     }, [menuAberto]);
 
     useEffect(() => {
@@ -27,15 +26,8 @@ export default function Topo() {
         }
 
         function handleScroll() {
-            if (window.scrollY > 50) {
-                setHeaderScroll(true);
-            } else {
-                setHeaderScroll(false);
-            }
-
-            if (menuAberto) {
-                toggleMenu();
-            }
+            setHeaderScroll(window.scrollY > 50);
+            if (menuAberto) toggleMenu();
         }
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -46,7 +38,7 @@ export default function Topo() {
             window.removeEventListener("scroll", handleScroll);
             document.body.style.overflow = "auto";
         };
-    }, [menuAberto, toggleMenu]); // Agora incluímos toggleMenu nas dependências
+    }, [menuAberto, toggleMenu]);
 
     const handleLinkClick = useCallback(() => {
         toggleMenu();
@@ -59,7 +51,7 @@ export default function Topo() {
             }`}
         >
             <div className={styles["limitar-secao"]}>
-                <a href="#">
+                <a href="#inicio" className={styles["logo-link"]}>
                     <img
                         src="/assets/logo.png"
                         alt="Logotipo da Óticas Vida"
@@ -88,6 +80,13 @@ export default function Topo() {
                     }`}
                     aria-label="Navegação principal"
                 >
+                    <a
+                        href="#inicio"
+                        className={styles.link}
+                        onClick={handleLinkClick}
+                    >
+                        INÍCIO
+                    </a>
                     <a
                         href="#produtos"
                         className={styles.link}
